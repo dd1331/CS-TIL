@@ -34,3 +34,52 @@
 - 파일마다 소유자, 소유자 그룹, 모든 사용자에 대해
     - 읽고, 쓰고, 실행하는 권한을 관리
     - 접근 권한 정보는 inode의 자료구조에 저장
+
+## 쉘 다중 사용자 지원 관련 명령어
+
+---
+
+## 쉘 종류
+
+- 쉘(shell): 사용자와 컴퓨터 하드웨어 또는 운영체제간 인터페이스
+    - 사용자의 명령을 해석해서, 커널에 명령을 요청해주는 역할
+    - 관련된 시스템콜을 사용해서 프로그래밍 되어있다
+- Bourne-Again Shell (bash): 대부분의 리눅스 디폴트
+- Bourne-Shell (sh)
+- C Shell (csh)
+- Korn Shell (ksh): 유닉스에서 가장 많이 사용됨
+
+## whoami: 로그인한 사용자 ID 확인
+
+```bash
+# whoami
+root
+```
+
+## passwd: 로그인한 사용자 암호 변경
+
+## useradd: 사용자 기본 설정 없이 유저 생성
+
+## adduser: 사용자 기본 설정으로 유저 생성
+
+## su: 사용자 변경
+
+- 보통 su - 와 함께 사용
+    - su root: 현재 사용자의 환경설정 기반, root로 변경
+    - su -root: 변경되는 사용자의 환경설정 기반, root로 변경
+
+## sudo: root 권한으로 실행
+
+- root 계정으로 로그인하지 않은 상태에서 root 권한이 필요한 명령을 실행할 수 있도록 하는 프로그램
+- /etc/sudoers 설정 파일에서 다음과 같이 설정 변경 가능
+    - visudo가 설치되어 있다면 해당 명령을 통해 설정 파일이 오픈되어 바로 수정 가능
+
+```bash
+1. 특정 사용자가 sudo를 사용할 수 있도록 설정
+		userid ALL=(ALL) ALL
+2. 특정 그룹에 포함된 모든 사용자가 sudo를 사용할 수 있도록 설정
+		%group ALL=(ALL) ALL
+3. 패스워드 생략 설정
+		%group ALL=(ALL) NOPASSWD: ALL
+		userid ALL=(ALL) NOPASSWD: ALL
+```
