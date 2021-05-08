@@ -1,8 +1,6 @@
-# 시스템 프로그래밍
+# **시스템 프로그래밍**
 
-## 쉘 - 다중 사용자 지원 관련 명령어
-
----
+# 쉘 - 다중 사용자 지원 관련 명령어
 
 ## 쉘 종류
 
@@ -49,9 +47,7 @@ root
 		userid ALL=(ALL) NOPASSWD: ALL
 ```
 
-## 쉘 - 파일 및 권한 관련 명령어
-
----
+# 쉘 - 파일 및 권한 관련 명령어
 
 ## pwd: 현재 디렉토리 위치
 
@@ -138,3 +134,53 @@ chown :root file
 ## tail: 파일 끝 부분 보기(기본 10줄)
 
 ## more: 파일보기 (화면이 넘어갈 경우 화면이 넘어가기 전까지 보여줌)
+
+# 쉘 - redirection/pipe
+
+## Standard Stream (표준 입출력)
+
+- 명령으로 실행되는 프로세스는 세 가지 스트림
+    - 표준 입력 스트림 (Standard Input Stream) -stdin
+    - 표준 출력 스트림 (Standard Input Stream) -stdout
+    - 오류 출력 스트림 (Standard Input Stream) -stderr
+- 모든 스트림은 일반적인 텍스트로 콘솔에 출력하도록 되어있음
+
+## redirection
+
+- 표준 스트림 흐름을 바꿀 수 있다.
+    - >, <을 사용
+    - 주로 명령어 표준 출력을 화면이 아닌 파일에 쓸 때 ex) 프로그램 > 파일, 파일 > 프로그램
+- 예
+    1. ls > files.txt
+        - ls로 출력되는 표준 출력  스트림의 방향을 files.txt로 바꿔줌
+    2. head < files.txt
+        - files.txt의 파일 내용이 head라는 파일의 처음부터 10라인까지 출력해주는 명령으로 넣어짐
+    3. head < files.txt > files2.txt
+        - files.txt의 내용이 head로 들어가서 files.txt의 앞 10 라인출력
+        - head의 출력 스트림은 다시 files2.txt로 들어감
+        - head는 files.txt 내용을 출력하지 않고, 해당 출력 내용이 다시 files2.txt에 저장됨
+    4. 기존 파일에 추가는 >> 또는 << 사용
+        - ls >> files.txt
+        - 기존에 있는 files.txt 파일 끝에 ls 출력결과 추가
+
+## pipe
+
+- 두 프로세스 사이에서 한 프로세스의 출력 스트림을 또다른 프로세스의 입력 스트림으로 사용할 때 사용됨
+- 예
+    1. ls | grep file
+        - ls 명령을 통한 출력 내용이 grep 명령의 입력 스트림으로 들어감
+        - grep file은 grep 명령의 입력스트림을 검색해서 file 이라는 문구가 들어 있는 입력 내용만 출력
+
+grep [-option] [pattern] [file or directory name]
+
+```bash
+<option>
+		-i : 영문의 대소문자 구별x
+		-v : 패턴을 포함하지 않는 라인 출력
+		-n : 각행 선두에 행번호 출력
+		-l : 파일명만 출력
+		-c : 패턴 일치 라인 개수만 출력
+		-r : 하위 디렉토리까지 검색
+```
+
+grep -E "go|java|python" files.txt → files.txt라는 파일에서 go, java 또는 python이 있는 모든 행을 출력
